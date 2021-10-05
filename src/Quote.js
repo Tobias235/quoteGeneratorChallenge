@@ -1,6 +1,13 @@
 import styles from "./Quote.module.css";
 
-const Quote = ({ quote, genre, author, onLoadQuote }) => {
+const Quote = ({
+  genre,
+  author,
+  title,
+  quotes,
+  onLoadAllQuotes,
+  onLoadQuote,
+}) => {
   return (
     <div>
       <div className={styles.icon}>
@@ -11,11 +18,18 @@ const Quote = ({ quote, genre, author, onLoadQuote }) => {
       </div>
       <div className={styles.container}>
         <div className={styles.centered}>
-          <div className={styles.quote}>
-            <p>{quote}</p>
-          </div>
-          <p className={styles.author}>{author}</p>
-          <p className={styles.genre}>{genre}</p>
+          {title && <h1>{author}</h1>}
+          {quotes.map((quote) => (
+            <div className={styles.quote} key={quote._id}>
+              <p>{quote.quoteText}</p>
+            </div>
+          ))}
+          {!title && (
+            <p onClick={onLoadAllQuotes} className={styles.author}>
+              {author}
+            </p>
+          )}
+          {!title && <p className={styles.genre}>{genre}</p>}
         </div>
       </div>
     </div>

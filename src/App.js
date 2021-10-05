@@ -2,41 +2,51 @@ import { useState, useEffect } from "react";
 import Quote from "./Quote";
 
 function App() {
-  const [quotes, setQuotes] = useState();
-  const [changeQuote, setChangeQuote] = useState();
-  const [currentQuote, setCurrentQuote] = useState("");
+  const [quotes, setQuotes] = useState([]);
+  const [title, setTitle] = useState(false);
   const [currentAuthor, setCurrentAuthor] = useState("");
   const [currentGenre, setCurrentGenre] = useState("");
   useEffect(() => {
-    fetchData();
-  }, [changeQuote]);
+    randomQuoteHandler();
+  }, []);
 
-  const fetchData = async () => {
-    const response = await fetch(
-      "https://quote-garden.herokuapp.com/api/v3/quotes/random"
-    );
+  const fetchData = async (url) => {
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error("Something went wrong!");
     }
     const responseData = await response.json();
-    setQuotes(responseData.data[0]);
-    setCurrentQuote(responseData.data[0].quoteText);
+    console.log(responseData.data);
+    setQuotes(responseData.data);
     setCurrentAuthor(responseData.data[0].quoteAuthor);
     setCurrentGenre(responseData.data[0].quoteGenre);
   };
 
-  function onclickhandler() {
-    setChangeQuote(quotes);
-  }
+  const randomQuoteHandler = async () => {
+    setTitle(false);
+    const url = "https://quote-garden.herokuapp.com/api/v3/quotes/random";
+
+    await fetchData(url);
+  };
+
+  const handleAllQuotes = async (e) => {
+    setTitle(true);
+
+    const author = e.target.innerHTML;
+    const url = `https://quote-garden.herokuapp.com/api/v3/quotes?author=${author}`;
+    await fetchData(url);
+  };
 
   return (
     <div>
       <Quote
-        onLoadQuote={onclickhandler}
-        quote={currentQuote}
+        onLoadQuote={randomQuoteHandler}
+        onLoadAllQuotes={handleAllQuotes}
         author={currentAuthor}
         genre={currentGenre}
+        quotes={quotes}
+        title={title}
       />
       <footer>
         <p>

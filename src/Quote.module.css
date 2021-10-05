@@ -1,6 +1,6 @@
 .icon {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   margin-right: 100px;
   margin-top: 31px;
 }
@@ -28,6 +28,8 @@
   border-left: 8px solid #f7df94;
   margin-right: 55px;
   font-weight: 500;
+  margin-top: 50px;
+  margin-bottom: 70px;
 }
 
 p {
@@ -46,4 +48,10 @@ p {
   margin-bottom: 0;
   color: #828282;
   font-weight: 500;
+}
+
+h1 {
+  font-family: "Raleway", sans-serif;
+  font-weight: 700;
+  font-size: 36px;
 }
