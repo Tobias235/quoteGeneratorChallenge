@@ -30,10 +30,8 @@ function App() {
     await fetchData(url);
   };
 
-  const handleAllQuotes = async (e) => {
+  const handleAllQuotes = async (author) => {
     setTitle(true);
-
-    const author = e.target.innerHTML;
     const url = `https://quote-garden.herokuapp.com/api/v3/quotes?author=${author}`;
     await fetchData(url);
   };

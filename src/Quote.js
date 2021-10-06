@@ -8,6 +8,10 @@ const Quote = ({
   onLoadAllQuotes,
   onLoadQuote,
 }) => {
+  const handleAuthor = () => {
+    onLoadAllQuotes(author);
+  };
+
   return (
     <div>
       <div className={styles.icon}>
@@ -21,15 +25,20 @@ const Quote = ({
           {title && <h1>{author}</h1>}
           {quotes.map((quote) => (
             <div className={styles.quote} key={quote._id}>
-              <p>{quote.quoteText}</p>
+              <p>"{quote.quoteText}"</p>
             </div>
           ))}
           {!title && (
-            <p onClick={onLoadAllQuotes} className={styles.author}>
-              {author}
-            </p>
+            <div className={styles.authorContainer} onClick={handleAuthor}>
+              <div className={styles.authorDetails}>
+                <p className={styles.author}>{author}</p>
+                <p className={styles.genre}>{genre}</p>
+              </div>
+              <div className={styles.arrow}>
+                <span className="material-icons">arrow_forward</span>
+              </div>
+            </div>
           )}
-          {!title && <p className={styles.genre}>{genre}</p>}
         </div>
       </div>
     </div>
